@@ -28,3 +28,4 @@ The front-end of the app will be programmed with React utilizing Material UI com
 ## Screenshot - Idea of the basic app layout
 
 
+![Screenshot 2025-02-11 bookreview](https://github.com/user-attachments/assets/4a7e114f-73fc-45c4-8230-61d385013962)
