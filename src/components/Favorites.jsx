@@ -2,6 +2,7 @@
 const Favorites = () => {
     return(
         <>
+            <p>Favorites</p>
         </>
     )
 }
