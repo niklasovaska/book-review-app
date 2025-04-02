@@ -4,19 +4,14 @@ import { ThemeProvider, createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { Typography } from '@mui/material'
 import Navbar from './components/Navbar'
-import Dashboard from './components/Dashboard'
 import Booklist from './components/Booklist'
+import Favorites from './components/Favorites'
+import ReadingChallenge from './components/ReadingChallenge'
+import { BrowserRouter, Routes, Route } from 'react-router'
 
 function App() {
 
-  const [books, setBooks, error, loading] = useFetch()
-  const [searchValue, setSearchValue] = useState('')
-
-  const booksToShow = books.filter((book) => book.name.toLowerCase().includes(searchValue.toLowerCase()) || book.author.toLowerCase().includes(searchValue.toLowerCase())) 
-
-  const handleSearchValueChange = (e) => {
-    setSearchValue(e.target.value)
-  }
+  const [books, setBooks, error, loading] = useFetch() 
 
   const darkTheme = createTheme({
     palette: {
@@ -35,9 +30,15 @@ function App() {
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Navbar />
-      <Dashboard books={books} setBooks={setBooks}/>
-      <Booklist books={booksToShow} handleSearchValueChange={handleSearchValueChange} />
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Navbar books={books} setBooks={setBooks}/>}>
+            <Route index element={<Booklist books={books} />} />
+            <Route path='/favorites' element={<Favorites />} />
+            <Route path='/challenge' element={<ReadingChallenge />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   )
 }
