@@ -2,16 +2,10 @@ import { useEffect, useState } from 'react'
 import bookService from './services/books'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
+import { Typography } from '@mui/material'
 import Navbar from './components/Navbar'
 import Dashboard from './components/Dashboard'
 import Booklist from './components/Booklist'
-
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark'
-  }
-})
-
 
 function App() {
 
@@ -22,6 +16,20 @@ function App() {
 
   const handleSearchValueChange = (e) => {
     setSearchValue(e.target.value)
+  }
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark'
+    }
+  })
+
+  if(error) {
+    return <Typography>Something went wrong</Typography>
+  }
+
+  if(loading) {
+    return <Typography>Loading...</Typography>
   }
 
   return (
