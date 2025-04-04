@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react'
-import bookService from './services/books'
+import useFetch from './hooks/useFetch'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
 import CssBaseline from '@mui/material/CssBaseline'
 import { Typography } from '@mui/material'
 import Navbar from './components/Navbar'
-import Booklist from './components/Booklist'
-import Favorites from './components/Favorites'
-import ReadingChallenge from './components/ReadingChallenge'
+import AllBooks from './pages/AllBooks'
+import Favorites from './pages/Favorites'
+import ReadingChallenge from './pages/ReadingChallenge'
 import { BrowserRouter, Routes, Route } from 'react-router'
 
 function App() {
@@ -32,9 +31,9 @@ function App() {
       <CssBaseline />
       <BrowserRouter>
         <Routes>
-          <Route path='/' element={<Navbar books={books} setBooks={setBooks}/>}>
-            <Route index element={<Booklist books={books} />} />
-            <Route path='/favorites' element={<Favorites />} />
+          <Route path='/' element={<Navbar books={books} setBooks={setBooks} />}>
+            <Route index element={<AllBooks books={books} setBooks={setBooks} />} />
+            <Route path='/favorites' element={<Favorites books={books} setBooks={setBooks} />} />
             <Route path='/challenge' element={<ReadingChallenge />} />
           </Route>
         </Routes>
@@ -44,29 +43,3 @@ function App() {
 }
 
 export default App
-
-
-const useFetch = () => {
-  const [books, setBooks] = useState([])
-  const [error, setError] = useState(false)
-  const [loading, setLoading] = useState(false)
-
-  useEffect(() => {
-    (async () => {
-      setError(false)
-      setLoading(true)
-      await bookService
-        .getAll()
-        .then(res => {
-          setBooks(res.data)
-        })
-        .catch(err => {
-          console.log(err)
-          setError(true)
-        })
-        setLoading(false)
-    })()
-  }, [])
-
-  return [books, setBooks, error, loading]
-}
