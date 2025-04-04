@@ -1,34 +1,26 @@
-import {Box, Card, CardContent, CardHeader, Chip, IconButton, Rating, Typography} from '@mui/material/'
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import {Box, Card, CardContent, CardHeader, Chip, Rating, Typography} from '@mui/material/'
+import CardFavoriteIcon from './CardFavoriteIcon';
+import calculateAverage from '../utils/calculateAverage'
 
-const BookCard = ({ book }) => {
-
-    const averageRating = (ratingArray) => {
-        let sum = 0
-
-        ratingArray.forEach(element => {
-            sum += element
-        });
-
-        return sum / ratingArray.length
+const BookCard = ({ book, books, setBooks }) => {
+    
+    if(book === undefined) {
+        return null
     }
+
 
     return(
         <Card>
             <CardHeader  
                 title={book.name}
-                action={
-                    <IconButton>
-                        <FavoriteBorderIcon fontSize='small'/>
-                    </IconButton>
-                }
+                action={<CardFavoriteIcon book={book} books={books} setBooks={setBooks} />}
                 sx={{minHeight: 100}}
             />
             <CardContent>
                 <Typography sx={{color: 'text.secondary'}}>{book.author}</Typography>
                 <Typography sx={{color: 'text.secondary', fontSize: '0.8rem'}}>{book.publicationYear}</Typography>
                 <Box sx={{display: 'flex', gap: 1, pt: 2}}>
-                    <Rating value={averageRating(book.ratings)} precision={0.1} size='small' />
+                    <Rating value={calculateAverage(book.ratings)} precision={0.1} size='small' />
                     <Typography sx={{color: 'text.secondary', fontSize: '0.8rem'}}>({book.ratings.length})</Typography>
                 </Box>
                 <Box sx={{display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 2}}>
