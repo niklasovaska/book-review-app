@@ -14,14 +14,15 @@ The front-end of the app will be programmed with React utilizing Material UI com
 - SQLite
 
 ## Project status
-- [x] Mapping and rendering book objects with hard-coded data
+- [x] Mapping and rendering book objects from JSON-server
 - [x] Basic UI layout with Material UI components
-- [x] App dashboard
-- [x] Form to handle add book (in the App state atm)
-- [ ] Routing components with React Router
+- [x] App navigation
+- [x] Back-end services with Axios and JSON-server
+- [x] Routing components with React Router
+- [ ] Node back-end application and repository
 - [ ] Configuring REST APIs with Express
 - [ ] Migrating data to SQLite
-- [ ] Back-end communication
+- [ ] Back-end communication with database
 - [ ] Testing
 - [ ] Deployment
 
