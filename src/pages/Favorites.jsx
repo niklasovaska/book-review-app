@@ -10,8 +10,8 @@ const Favorites = ({ books, setBooks }) => {
 
     return(
         <>
-            <Box component="section" sx={{p: 4, margin: 10}}>
-                <Typography variant='h4'>Favorites</Typography>
+            <Box component="section" sx={{p: 6, mx: 10}}>
+                <Typography variant='h3'>Favorites</Typography>
             </Box>
             <BookGridList booksToMap={favorites} books={books} setBooks={setBooks} />
         </>
