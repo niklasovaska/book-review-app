@@ -4,10 +4,10 @@ import BookCard from './BookCard'
 
 const BookGridList = ({ booksToMap, books, setBooks }) => {
     return(
-        <Box component="section" sx={{p: 4, margin: 10, border: 1, borderColor: '#03DAC5'}}>
+        <Box component="section" sx={{mx: 10}}>
             <Grid container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 12}}>
                 {booksToMap.map(book => 
-                    <Grid key={book.id} size={{xs: 2, sm: 4, md: 4}}>
+                    <Grid key={book.id} size={{xs: 4}}>
                         <BookCard book={book} books={books} setBooks={setBooks}/>
                     </Grid>)}
             </Grid>
