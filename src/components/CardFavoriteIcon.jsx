@@ -10,7 +10,7 @@ const CardFavoriteIcon = ({ book, books, setBooks }) => {
     return(
         <Tooltip title={book.favorite ? `` : `Add to favorites`}>
             <IconButton onClick={() => handleFavoriteUpdate(book.id, books, setBooks)}>
-                {book.favorite ? <FavoriteIcon fontSize='small'/> : <FavoriteBorderIcon fontSize='small'/>}
+                {book.favorite ? <FavoriteIcon fontSize='small' sx={{color: '#f66e5f'}}/> : <FavoriteBorderIcon fontSize='small'/>}
             </IconButton>
         </Tooltip>
     )

@@ -20,11 +20,19 @@ const BookCard = ({ book, books, setBooks }) => {
                 <Typography sx={{color: 'text.secondary'}}>{book.author}</Typography>
                 <Typography sx={{color: 'text.secondary', fontSize: '0.8rem'}}>{book.publicationYear}</Typography>
                 <Box sx={{display: 'flex', gap: 1, pt: 2}}>
-                    <Rating value={calculateAverage(book.ratings)} precision={0.1} size='small' />
-                    <Typography sx={{color: 'text.secondary', fontSize: '0.8rem'}}>({book.ratings.length})</Typography>
+                    <Rating 
+                        value={calculateAverage(book.ratings)} 
+                        precision={0.1} 
+                        size='small' />
+                    <Typography 
+                        sx={{color: 'text.secondary', fontSize: '0.8rem'}}>({book.ratings.length})</Typography>
                 </Box>
                 <Box sx={{display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 2}}>
-                    {book.genres.map(genre => <Chip key={genre} sx={{backgroundColor: '#018786'}}label={<Typography sx={{fontSize: '0.8rem'}}>{genre}</Typography>} size='small'/>)}
+                    {book.genres.map(genre => 
+                        <Chip 
+                            key={genre} 
+                            sx={{bgcolor: 'divider'}} 
+                            label={<Typography sx={{fontSize: '0.8rem'}}>{genre}</Typography>} size='small'/>)}
                 </Box>
             </CardContent>
         </Card>
