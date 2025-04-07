@@ -12,14 +12,16 @@ import HomeIcon from '@mui/icons-material/Home'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import ElectricBoltIcon from '@mui/icons-material/ElectricBolt'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import NightlightRoundIcon from '@mui/icons-material/NightlightRound'
 import Tooltip from '@mui/material/Tooltip'
 import AddBookModal from './AddBookModal'
 import NotificationAlert from './NotificationAlert'
 import { Link, Outlet } from 'react-router'
-
 import { useState } from 'react'
 
-const Navbar = ({ books, setBooks }) => {
+
+const Navbar = ({ books, setBooks, darkMode, setDarkMode }) => {
     const [DrawerOpen, setDrawerOpen] = useState(false)
     const [openModal, setOpenModal] = useState(false)
     const [alert, setAlert] = useState({
@@ -65,12 +67,12 @@ const Navbar = ({ books, setBooks }) => {
     return(
         <>
             <Box sx={{flexGrow: 1, marginBottom: 10}}>
-                <AppBar position='fixed'>
+                <AppBar position='fixed' color='primary'>
                     <Toolbar>
-                        <IconButton onClick={toggleDrawer(true)}><MenuIcon /></IconButton>
+                        <IconButton onClick={toggleDrawer(true)} color='inherit'><MenuIcon /></IconButton>
                         <Typography variant='h5' sx={{marginLeft: 6, fontWeight: 'bold', flexGrow: 1}}>the book review club</Typography>
                         <Tooltip title='Add new course'>
-                            <IconButton onClick={handleOpen}>
+                            <IconButton onClick={handleOpen} color='inherit'>
                                 <AddCircleIcon fontSize='large'/>
                             </IconButton>
                         </Tooltip>
@@ -81,6 +83,14 @@ const Navbar = ({ books, setBooks }) => {
                             setBooks={setBooks}
                             setAlert={setAlert}
                         />
+                        <Tooltip title={darkMode ? 'Toggle light mode' : 'Toggle dark mode'}>
+                            <IconButton
+                                sx={{mr: 6}}
+                                color='inherit'
+                                onClick={() => setDarkMode(!darkMode)}>
+                                {darkMode ? <LightModeIcon /> : <NightlightRoundIcon />}
+                            </IconButton>
+                        </Tooltip>
                     </Toolbar>
                 </AppBar>
                 <Drawer
