@@ -10,9 +10,7 @@ const AddBookModal = ({ openModal, handleClose, books, setBooks, setAlert }) => 
             open={openModal}
             onClose={handleClose}>
             <Box sx={modalStyle}>
-                <Form
-                    books={books} 
-                    setBooks={setBooks} 
+                <Form 
                     handleClose={handleClose} 
                     setAlert={setAlert}
                 />
