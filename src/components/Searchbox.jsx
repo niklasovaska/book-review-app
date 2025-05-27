@@ -3,8 +3,8 @@ import TextField from '@mui/material/TextField'
 
 const Searchbox = ({ handleSearchValueChange }) => {
     return(
-        <Box sx={{p: 3}}>
-            <TextField label="Search book reviews" onChange={handleSearchValueChange}/>
+        <Box sx={{mt: 4}}>
+            <TextField label="Search book reviews" onChange={handleSearchValueChange} fullWidth/>
         </Box>
     )
 }
