@@ -1,10 +1,38 @@
 import {Box, Button, Container,FormControl, InputLabel, MenuItem, OutlinedInput, Rating, Select, TextField, Typography} from '@mui/material'
-import bookService from '../services/books'
+import { getAll, createBook } from '../services/books'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
-import genreList from '../data/listOfGenres'
 
+const Form = ({ handleClose, setAlert }) => {
+    const queryClient = useQueryClient()
 
-const Form = ({ books, setBooks, handleClose, setAlert }) => {
+    const { data: genres, error, isLoading } = useQuery({
+        queryKey: ['genres'],
+        queryFn: () => getAll('/genres')
+    })
+
+    // const genreMap = returnMapFromObjectList(genres)
+
+    const { mutate } = useMutation({
+        mutationFn: createBook,
+        onError: (err) => { 
+            console.log(err)
+            setAlert({...alert, 
+                visibility: true, 
+                severity: 'error', 
+                message: 'There was an error adding a book review'
+            })
+        },
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ['books']})
+            console.log('Success: ', data)
+            setAlert({...alert, 
+                visibility: true, 
+                severity: 'success', 
+                message: 'New book review added successfully!'
+            })
+        }
+    })
 
     const [form, setForm] = useState({
         name: '',
@@ -13,7 +41,7 @@ const Form = ({ books, setBooks, handleClose, setAlert }) => {
     })
 
     const [ratingValue, setRatingValue] = useState(0)
-    const [selectedGenres, setSelectedGenres] = useState([])
+    const [selectedGenre, setSelectedGenre] = useState('')
 
     const handleChange = (e) => {
         setForm({
@@ -23,12 +51,7 @@ const Form = ({ books, setBooks, handleClose, setAlert }) => {
     }
 
     const handleGenreChange = (e) => {
-        const {
-            target: { value },
-          } = e;
-          setSelectedGenres(
-            typeof value === 'string' ? value.split(',') : value,
-          )
+        setSelectedGenre(e.target.value)
     }
     
     const handleAddBook = (e) => {
@@ -37,36 +60,26 @@ const Form = ({ books, setBooks, handleClose, setAlert }) => {
         const newBook = {
                 ...form,
                 publicationYear: parseInt(form.publicationYear),
-                genres: selectedGenres,
-                ratings: [ratingValue],
+                rating: ratingValue,
                 favorite: false,
-                challengeNumber: null
+                genreId: parseInt(selectedGenre)
             }
-        
-        bookService
-            .create(newBook)
-            .then(res => {
-                setBooks(books.concat(res.data))
-                setAlert({...alert, 
-                    visibility: true, 
-                    severity: 'success', 
-                    message: 'New book review added successfully!'
-                })
-            })
-            .catch(error => {
-                console.log(error)
-                setAlert({...alert, 
-                    visibility: true, 
-                    severity: 'error', 
-                    message: 'There was an error adding a book review'
-                })
-            })
+        mutate(newBook)       
     
         handleClose()
     
         setForm({name: '', author: '', publicationYear: 0})
     }
     
+    if(error) {
+        return <Typography>Something went wrong</Typography>
+      }
+    
+    if(isLoading) {
+    return <Typography>Loading...</Typography>
+    }
+
+
     return(
         <Container> 
             <Typography sx={{padding: '2rem'}}variant='h5'>Review a new book</Typography>
@@ -88,22 +101,21 @@ const Form = ({ books, setBooks, handleClose, setAlert }) => {
                     onChange={handleChange}
                 />
                 <Box>
-                    <FormControl sx={{width: '100%' }}>
-                        <InputLabel id="genres">Select genres</InputLabel>
+                    <FormControl fullWidth>
+                        <InputLabel id="genres">Select genre</InputLabel>
                         <Select
                             labelId="genre-label"
                             id="genres"
-                            multiple
-                            value={selectedGenres}
+                            value={selectedGenre}
                             onChange={handleGenreChange}
                             input={<OutlinedInput label="Select genres" />}
                         >
-                            {genreList.map((name) => (
+                            {genres.map((genre) => (
                             <MenuItem
-                                key={name}
-                                value={name}
+                                key={genre.id}
+                                value={genre.id}
                             >
-                                {name}
+                                {genre.name}
                             </MenuItem>
                             ))}
                         </Select>
