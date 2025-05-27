@@ -1,4 +1,5 @@
 import { createTheme } from "@mui/material"
+import '@fontsource/inter'
 
 const darkTheme = createTheme({
   palette: {
@@ -8,8 +9,11 @@ const darkTheme = createTheme({
       contrastText: '#101919',
     },
     secondary: {
-      main: '#2d7a7c',
+      main: '#2d797c',
       contrastText: '#101919',
+    },
+    contrast: {
+      main: '#daf1f1'
     },
     graph: {
       peach: '#f66e5f',
@@ -17,6 +21,7 @@ const darkTheme = createTheme({
       lavender: '#9e57f8',
       green: '#0ac97f',
       blue: '#19b6f6',
+      green: '#0ace82'
     },
     divider: '#55d3d3',
     text: {
@@ -30,6 +35,9 @@ const darkTheme = createTheme({
       paper: '#162c2d'
     },
   },
+  typography: {
+    fontFamily: 'inter'
+  }
 });
 
 const lightTheme = createTheme({
@@ -43,12 +51,17 @@ const lightTheme = createTheme({
       main: '#83d0d2',
       contrastText: '#0e2525',
     },
+    contrast: {
+      main: '#0e2525'
+    },
     graph: {
       peach: '#f66e5f',
       orange: '#f24e1e',
       lavender: '#9e57f8',
       green: '#0ac97f',
       blue: '#19b6f6',
+      green: '#0ace82'
+      
     },
     divider: '#2caaaa',
     text: {
@@ -62,6 +75,9 @@ const lightTheme = createTheme({
       paper: '#d2e9e9'
     },
   },
+  typography: {
+    fontFamily: 'inter'
+  }
 })
 
 export default {darkTheme, lightTheme}
