@@ -21,14 +21,9 @@ import { Link, Outlet } from 'react-router'
 import { useState } from 'react'
 
 
-const Navbar = ({ books, setBooks, darkMode, setDarkMode }) => {
+const Navbar = ({ darkMode, setDarkMode, alert, setAlert }) => {
     const [DrawerOpen, setDrawerOpen] = useState(false)
     const [openModal, setOpenModal] = useState(false)
-    const [alert, setAlert] = useState({
-        visibility: false,
-        severity: '',
-        message: ''
-    })
 
     const handleOpen = () => setOpenModal(true);
     const handleClose = () => setOpenModal(false);
@@ -78,9 +73,7 @@ const Navbar = ({ books, setBooks, darkMode, setDarkMode }) => {
                         </Tooltip>
                         <AddBookModal 
                             openModal={openModal} 
-                            handleClose={handleClose} 
-                            books={books}
-                            setBooks={setBooks}
+                            handleClose={handleClose}
                             setAlert={setAlert}
                         />
                         <Tooltip title={darkMode ? 'Toggle light mode' : 'Toggle dark mode'}>
