@@ -1,30 +1,24 @@
-import {Box, Card, CardContent, CardHeader, Chip, Rating, Typography} from '@mui/material/'
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import {Card, CardContent, CardHeader, Chip, Typography} from '@mui/material/'
+import ChallengeActionIcon from './ChallengeActionIcon'
 
-const ChallengeCard = ({ challenge, books, setBooks }) => {
-
-    let booksToShow = []
-
-    if(books.length > 0) {
-        booksToShow = books.filter((book) => book.challengeNumber === challenge.number)
-    }
+const ChallengeCard = ({ challenge, setAlert }) => { 
     
     return(
         <Card>
             <CardHeader 
-                title={<Typography variant='h4'color='text.hint'>{challenge.number}</Typography>}
-                subheader={<Typography>{challenge.challenge}</Typography>}
-                action={<CheckCircleIcon fontSize='small' sx={{color: 'graph.blue'}} />} 
+                title={<Typography variant='h4'color='text.hint'>{challenge.id}</Typography>}
+                subheader={<Typography>{challenge.name}</Typography>}
+                action={<ChallengeActionIcon challenge={challenge} setAlert={setAlert} />}
             />
             <CardContent>
-                {booksToShow.length > 0 ? 
-                    booksToShow.map(book => 
-                        <Chip 
-                            key={book.id} 
-                            label={book.name}
-                            
-                            sx={{mr: 2, mt: 2, bgcolor: 'background.default'}}
-                            />) : null}
+                {
+                    challenge.book && 
+                    <Chip 
+                        label={challenge.book}
+                        sx={{mr: 2, mt: 2, bgcolor: 'background.default'}}
+                    />
+                }
+                
             </CardContent>
         </Card>
     )
