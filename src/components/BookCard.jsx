@@ -1,8 +1,8 @@
 import {Box, Card, CardContent, CardHeader, Chip, Rating, Typography} from '@mui/material/'
 import CardFavoriteIcon from './CardFavoriteIcon';
-import calculateAverage from '../utils/calculateAverage'
+import CardDeleteIcon from './CardDeleteIcon';
 
-const BookCard = ({ book, books, setBooks }) => {
+const BookCard = ({ book, books, setAlert }) => {
     
     if(book === undefined) {
         return null
@@ -13,26 +13,29 @@ const BookCard = ({ book, books, setBooks }) => {
         <Card>
             <CardHeader  
                 title={book.name}
-                action={<CardFavoriteIcon book={book} books={books} setBooks={setBooks} />}
+                action={
+                    <>
+                        <CardDeleteIcon book={book} setAlert={setAlert} />
+                        <CardFavoriteIcon book={book} books={books} setAlert={setAlert} />
+                    </>
+                }
                 sx={{minHeight: 100}}
             />
             <CardContent>
                 <Typography sx={{color: 'text.secondary'}}>{book.author}</Typography>
-                <Typography sx={{color: 'text.secondary', fontSize: '0.8rem'}}>{book.publicationYear}</Typography>
+                <Typography sx={{color: 'text.secondary', fontSize: '0.8rem'}}>{book.publication_year}</Typography>
                 <Box sx={{display: 'flex', gap: 1, pt: 2}}>
                     <Rating 
-                        value={calculateAverage(book.ratings)} 
+                        value={book.rating} 
                         precision={0.1} 
                         size='small' />
-                    <Typography 
-                        sx={{color: 'text.secondary', fontSize: '0.8rem'}}>({book.ratings.length})</Typography>
                 </Box>
                 <Box sx={{display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 2}}>
-                    {book.genres.map(genre => 
-                        <Chip 
-                            key={genre} 
-                            sx={{bgcolor: 'divider'}} 
-                            label={<Typography sx={{fontSize: '0.8rem'}}>{genre}</Typography>} size='small'/>)}
+                    <Chip 
+                        sx={{bgcolor: 'divider'}} 
+                        label={<Typography sx={{fontSize: '0.8rem'}}>{book.genre}</Typography>} 
+                        size='small'
+                    />
                 </Box>
             </CardContent>
         </Card>
